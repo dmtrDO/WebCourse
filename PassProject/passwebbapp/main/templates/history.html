@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <div class="email-title">
+        <img src="{% static 'img/user.png' %}" title="{{ email }}">
+        <p title="{{ email }}">{{ email }}</p>
+    </div>
+    <a href="{% url 'home' %}" class="header-button"><p>Назад</p></a>
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+
+
+

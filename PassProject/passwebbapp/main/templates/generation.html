@@ -1,0 +1,33 @@
+
+<div class="generation">
+    <form method="POST" class="generation-form" id="g-form" novalidate>
+        {% csrf_token %}
+        <div class="generation-form__main">
+            <input type="text" value="{{ password }}" class="form-control" readonly>
+            <button type="submit" class="registration-login-button">Згенерувати</button>
+        </div>
+
+        <div class="generation-form__settings">
+            <div class="checkbox">
+                Цифри
+                {{ form.is_numbers }}
+            </div>
+            <div class="checkbox">
+                Спеціальні символи
+                {{ form.is_special }}
+            </div>
+            <div class="checkbox">
+                Літери
+                {{ form.is_letters }}
+            </div>
+            <div>
+                <p>Довжина: <span id="range-value"></span> символів</p>
+                {{ form.length }}
+            </div>
+        </div>
+        <p class="registration-login-form-error">{{ error }}</p>
+    </form>
+</div>
+
+
+
