@@ -1,0 +1,50 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <div class="email-title">
+        <img src="{% static 'img/user.png' %}" title="{{ email }}">
+        <p title="{{ email }}">{{ email }}</p>
+    </div>
+    <a href="{% url 'home' %}" class="header-button"><p>Назад</p></a>
+{% endblock %}
+
+{% block content %}
+    <div class="history">
+        {% for password in passwords %}
+            <div class="history-item">
+                <div class="history-row">
+                      <span>{{ password.2 }}</span>
+                </div>
+                <div class="input-password" title="{{ password.3 }}">
+                    <input type="text" value="{{ password.1 }}" id="password-id-{{password.0}}" class="form-control" readonly>
+                    <button title="Скопіювати пароль" type="reset" class="copy-btn"
+                            onclick="copyTextPassword('password-id-{{password.0}}')"></button>
+                    <a href="{% url 'delete' password.0 %}" class="delete-btn" title="Видалити пароль" onclick="setScrollToSession()"></a>
+                    <button title="Додати/змінити асоціацію" type="reset" class="update-btn"
+                            onclick="openPopup('{{ password.0 }}')"></button>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="popup" id="popup">
+            <div class="popup__body">
+                <form method="POST" action="{% url 'update' %}" class="popup__content">
+                    {% csrf_token %}
+                    <p>Введіть асоціацію (опис) до паролю:</p>
+                    <input type="hidden" name="password-id" id="password-id-field">
+                    <input type="text" name="association" id="association-field" placeholder="Введіть асоціацію">
+                    <div class="confirm-buttons">
+                        <button type="button" id="cancel-button" onclick="closePopup()" tabindex="2">Скасувати</button>
+                        <button type="submit" tabindex="1" onclick="setScrollToSession()">ОК</button>
+                    </div>
+                    <p id="confirm-error"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
